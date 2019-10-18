@@ -1,0 +1,64 @@
+STEP-1
+cd /opt
+
+STEP-2
+sudo wget http://mirrors.fibergrid.in/apache/tomcat/tomcat-8/v8.5.34/bin/apache-tomcat-8.5.34.tar.gz
+
+STEP-3
+sudo tar -xvf apache-tomcat-8.5.34.tar.gz
+
+STEP-4
+sudo rm -rf apache-tomcat-8.5.34.tar.gz
+
+STEP-5
+sudo mv apache-tomcat-8.5.34 tomcat8
+
+STEP-6
+cd /etc/init.d
+
+STEP-7
+sudo vi tomcat8
+
+STEP-8
+##############PASTE THE BELOW CONTENT###############
+#!/bin/bash
+# description: Tomcat Start Stop Restart  
+# processname: tomcat  
+# chkconfig: 234 20 80
+CATALINA_HOME=/opt/tomcat8
+case $1 in  
+start)  
+sh $CATALINA_HOME/bin/startup.sh  
+;;   
+stop)     
+sh $CATALINA_HOME/bin/shutdown.sh  
+;;   
+restart)  
+sh $CATALINA_HOME/bin/shutdown.sh  
+sh $CATALINA_HOME/bin/startup.sh  
+;;   
+esac      
+exit 0 
+#################################################
+
+STEP-9
+sudo chmod 755 tomcat8
+
+STEP-9
+sudo chkconfig --add tomcat8
+
+STEP-10
+sudo chkconfig --level 234 tomcat8 on
+
+STEP-11
+sudo service tomcat8 start
+sudo chkconfig tomcat8 on
+
+
+
+###################################################
+EXTRA COMMANDS:
+1. service tomcat8 start
+2. service tomcat8 stop
+3. service tomcat8 restart
+4. chkconfig --list tomcat8
